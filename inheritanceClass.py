@@ -2,19 +2,25 @@
 
 classDictionary = {}
 
-def writeClassesInDictionary(d):
-    n = int(input())###кол-во класов
-    while len(classDictionary) != n:
+list_to_input = ['A : B C D G H', 'B : C E G H K L', 'C : E D H K L', 'E : D F K L', 'D : G H', 'F : K', 'G : F', 'H : L', 'K : H L', 'L']
+
+list_to_question=['K D', 'D A', 'G D', 'H A', 'E E', 'H G', 'E L', 'B D', 'D L', 'D G', 'D E', 'A F', 'A C', 'K A', 'A H', 'K D', 'H B', 'K B', 'D L', 'G G', 'A H', 'K L', 'G E', 'B A', 'C K', 'K L', 'C L', 'G C', 'D D', 'C G', 'E A', 'F K', 'B G', 'H L', 'L F', 'H G', 'D A', 'H L']#38 запросов
+
+answers = ['Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'No', 'No', 'No', 'No', 'Yes', 'No', 'No', 'Yes', 'No', 'Yes', 'Yes', 'Yes', 'No', 'Yes', 'No', 'No', 'Yes', 'Yes', 'No', 'No', 'No', 'Yes', 'Yes', 'No', 'Yes', 'No', 'No', 'No', 'Yes', 'Yes', 'Yes', 'No']#38 ответов
+
+def writeClassesInDictionary(d, n):
+    if n == 0:
+        return 0
+    else:
         classAndChildren = str(input()).split()
         clas = classAndChildren[0]
-        classDictionary.setdefault(clas, [])
-        # if len(classDictionary) == n:
-        #     break
+        d.setdefault(clas, [])
         for child in classAndChildren[2:]:
-            classDictionary.setdefault(child, [])
-            classDictionary.setdefault(clas, []).append(child)
-           # if len(classDictionary) == n: 
-       #         break
+            if clas != child:
+                d.setdefault(child, [])
+                d.setdefault(clas, []).append(child)
+        return writeClassesInDictionary(d, n - 1)
+
 def searchParent(d, parent, child):
     if not parent in d.keys() or not child in d.keys():
         return 'No'
@@ -35,12 +41,8 @@ def searchParent(d, parent, child):
         else: 
             return 'No'
 
-writeClassesInDictionary(classDictionary)
+writeClassesInDictionary(classDictionary, int(input()))
 print(classDictionary)
 for quantityRequests in range(0, int(input()), 1):
     parent, child = str(input()).split()
-    #if parent in classDictionary[child]:
-    #    print("Yes")
-    #else:
-    #    print("No")
     print(searchParent(classDictionary, parent, child))

@@ -1,2 +1,0 @@
-aabc abc a bCd bC AbC BC BCD bcd ABC 
-abc a bCd bC AbC BC BCD bcd ABC
